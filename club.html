@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Club</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 </head>
 <body>
@@ -23,12 +23,12 @@
 
     <script>
         const token = `187f859377984ada830e5b520d22e91d`
-        
-        const negaraAPI = `https://api.football-data.org/v2/areas/` //negara
+
+        const negaraAPI = `https://api.football-data.org/v2/areas/` //Negara
         axios.get(negaraAPI, {headers: {"X-Auth-Token":`${token}`}})
         .then(response => console.log(response)).catch(err => console.log(err))
 
-        const ligaAPI = `https://api.football-data.org/v2/competitions` //liga
+        const ligaAPI = `https://api.football-data.org/v2/competitions` //Liga
         axios.get(ligaAPI, {headers: {"X-Auth-Token":`${token}`}})
         .then(response => console.log(response)).catch(err => console.log(err))
 
