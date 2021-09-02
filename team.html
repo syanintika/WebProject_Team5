@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
   </head>
   <body>
+
     <div class="container-md">
-      <div id="dataTeam"></div>
+      <div id="dataTeam" class="row"></div>
     </div>
 
     <!-- JQUERY -->
@@ -22,31 +23,35 @@
     <!-- SWEET ALERT -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
       const urlparams = new URLSearchParams(window.location.search);
       const competitionId = urlparams.get("team");
       const API = `https://api.football-data.org/v2/competitions/${competitionId}/teams`;
       const token = `187f859377984ada830e5b520d22e91d`;
-      axios
-        .get(API, { headers: { "X-Auth-Token": `${token}` } })
-        .then((response) => console.log(response))
-        .catch((err) => console.log(err));
-        const getListData = () =>{
-        axios
-        .get(API,{headers:{"X-Auth-Token":`${token}`}})
-        .then((response)=>{
-          let data = response.data.teams
+
+      axios.get(API, { headers: { "X-Auth-Token": `${token}` } }).then((response) => console.log(response)).catch((err) => console.log(err));
+        
+      const getDataTeam = () =>{
+        axios.get(API,{headers:{"X-Auth-Token":`${token}`}}).then((response)=>{
+          let data = response.data.teams.sort(function(a, b) {
+            return a.name === b.name ? 0 : a.name < b.name ? -1 : 1;
+            });
           console.log(data)
           let html = ""
           data.forEach((team)=>{
             
               html+=`
-              <tr>
-               
-                <td><a href="./player.html?id=${team.id}">${team.name}</a></td>
-                
-              </tr>
+              
+              <div class="col-md-3 col-sm-4">
+                <div class="card text-center">
+                  <img src="${team.crestUrl}" class="card-img-top" alt="">
+                  <div class="card-body">
+                    <h5 class="card-title">${team.name}</h5>
+                    <p class="card-text">${team.venue}</p>
+                    <a href="${team.id}" class="btn btn-primary text-transform:uppercase border-radius:40px !important">Club Player</a>
+                  </div>
+                </div>
+              </div>
             `
 
           })
@@ -54,7 +59,7 @@
         })
         .catch((err)=> console.log(err))
       }
-      getListData();  
+      getDataTeam();  
     </script>
 
   </body>
