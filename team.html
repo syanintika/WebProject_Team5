@@ -5,6 +5,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Team</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
   </head>
-  <body></body>
+  <body>
+    <div class="container-md">
+      <div id="dataTeam"></div>
+    </div>
+
+    <!-- JQUERY -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <!-- AXIOS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- SWEET ALERT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      const urlparams = new URLSearchParams(window.location.search);
+      const competitionId = urlparams.get("team");
+      const API = `https://api.football-data.org/v2/competitions/${competitionId}/teams`;
+      const token = `187f859377984ada830e5b520d22e91d`;
+      axios
+        .get(API, { headers: { "X-Auth-Token": `${token}` } })
+        .then((response) => console.log(response))
+        .catch((err) => console.log(err));
+        const getListData = () =>{
+        axios
+        .get(API,{headers:{"X-Auth-Token":`${token}`}})
+        .then((response)=>{
+          let data = response.data.teams
+          console.log(data)
+          let html = ""
+          data.forEach((team)=>{
+            
+              html+=`
+              <tr>
+               
+                <td><a href="./player.html?id=${team.id}">${team.name}</a></td>
+                
+              </tr>
+            `
+
+          })
+          $(dataTeam).html(html)
+        })
+        .catch((err)=> console.log(err))
+      }
+      getListData();  
+    </script>
+
+  </body>
 </html>
