@@ -29,9 +29,11 @@
     </div>
   </nav>
   <!-- Navbar End-->
+  <div class ="bg-secondary">
   <div class="container-md">
     <div id="listdata" class="row"></div>
   </div>
+</div>
  <!-- Footer -->
  <footer class="bg-dark footer-dark">
   <p class="text-white text-center">
@@ -69,6 +71,7 @@
     <!-- sweet alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+      
       const urlparams = new URLSearchParams(window.location.search)
       const kompetisid = urlparams.get("id")
       const API = `https://api.football-data.org/v2/teams/${kompetisid}/`
@@ -98,14 +101,19 @@ const GetData = () =>{
     Data.forEach(tabar => { 
       ToHtml += `<div class="col-md-3 col-sm-4">
                 <div class="card text-center">
-                  <img src="assets/image/defaultavatar.png" class="card-img-top" alt="">
-                  <div class="card-body">
-                    <h5 class="card-title">NAME: ${tabar.name}</h5>
-                    <p class="card-text"><b>NATIONALITY: </b>${tabar.nationality}</p>
-                    <a href=# class="btn btn-primary text-transform:uppercase border-radius:40px !important">player info</a>
+                <img src="assets/image/defaultavatar.png" class="card-img-top" alt="default">
+                <div class="card-body">
+                <h5 class="card-title">Name: ${tabar.name}</h5>
                   </div>
-                </div>
-              </div>`
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><b>Nationality: </b><b>${tabar.nationality}</b></li>
+    <li class="list-group-item"><b>Position: </b><b>${tabar.position}</b></li>
+    <li class="list-group-item"><b>Date Of Birth: </b><b>${tabar.dateOfBirth}</b></li>
+    <li class="list-group-item"><b>Country Of Birth: </b><b>${tabar.countryOfBirth}</b></li>
+  </ul>
+</div>          
+ </div>
+</div>`
     });
     $(listdata).html(ToHtml)
   })
