@@ -35,8 +35,8 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
       const urlparams = new URLSearchParams(window.location.search);
-      const kompetisiid = urlparams.get("id");
-      const API = `https://api.football-data.org/v2/teams/${kompetisiid}/`;
+      const kompetisid = urlparams.get("id");
+      const API = `https://api.football-data.org/v2/teams/${kompetisid}/`;
       const token = `bff6bab174244a468b138dd2e22546f5`;
       axios
         .get(API, { headers: { "X-Auth-Token": `${token}` } })
