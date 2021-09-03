@@ -4,7 +4,67 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>League</title>
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
   </head>
-  <body></body>
+  <body>
+    <div class="container-md">
+      <div id="listdata"></div>
+    </div>
+
+    <!-- JQUERY FULL -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- BOOTSTRAP -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+      crossorigin="anonymous"
+    ></script>
+    <!-- AXIOS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      const urlparams = new URLSearchParams(window.location.search);
+      const kompetisiid = urlparams.get("id");
+      const API = `https://api.football-data.org/v2/teams/${kompetisiid}/`;
+      const token = `bff6bab174244a468b138dd2e22546f5`;
+      axios
+        .get(API, { headers: { "X-Auth-Token": `${token}` } })
+        .then((response) => console.log(response))
+        .catch((err) => console.log(err));
+        const getListData = () =>{
+        axios
+        .get(API,{headers:{"X-Auth-Token":`${token}`}})
+        .then((response)=>{
+          let data = response.data.squad
+          console.log(data)
+          let html = ""
+          data.forEach((player)=>{
+            
+              html+=
+              `
+              <tr>
+                <td><a href="./biodata.html?id=${player.id}">${player.name}</a></td>  
+              </tr>
+            `
+
+          })
+          $(listdata).html(html)
+        })
+        .catch((err)=> console.log(err))
+      }
+      getListData();  
+    </script>
+    </script>
+  </body>
 </html>
