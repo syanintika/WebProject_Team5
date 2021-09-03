@@ -13,9 +13,14 @@
     />
   </head>
   <body>
-<div class="container-md">
-  <div id=dataAja></div>
-</div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-md">
+        <a class="navbar-brand" href="./home.html">Suka Bola</a>
+      </div>
+    </nav>
+    <div class="container-md">
+      <div id="dataAja"></div>
+    </div>
 
     <!-- JQUERY FULL -->
     <script
@@ -29,40 +34,48 @@
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-      crossorigin="anonymous">
-    </script>
-        <!-- AXIOS -->
+      crossorigin="anonymous"
+    ></script>
+    <!-- AXIOS -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-      const API  = `https://api.football-data.org/v2/competitions`
+      const API = `https://api.football-data.org/v2/competitions`;
       const token = `187f859377984ada830e5b520d22e91d`;
       axios
-      .get(API,{headers:{"X-Auth-Token":`${token}`}})
-      .then((response)=>console.log(response))
-      .catch((err)=>console.log(err));
-      const getListData = () =>{
+        .get(API, { headers: { "X-Auth-Token": `${token}` } })
+        .then((response) => console.log(response))
+        .catch((err) => console.log(err));
+      const getListData = () => {
         axios
-        .get(API,{headers:{"X-Auth-Token":`${token}`}})
-        .then((response)=>{
-          let data = response.data.competitions
-          console.log(data)
-          let html = ""
-          data.forEach((tier)=>{
-            if(tier.plan==="TIER_ONE"){
-              html+=`
-              <tr>
-                <td><a href="./team.html?team=${tier.id}">${tier.name}</a></td>
-                <td>${tier.code}</td>
-              </tr>
-            `
-            }
-
+          .get(API, { headers: { "X-Auth-Token": `${token}` } })
+          .then((response) => {
+            let data = response.data.competitions;
+            console.log(data);
+            let html = "";
+            data.forEach((tier) => {
+              if (tier.plan === "TIER_ONE") {
+                html += `
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td class="d-flex justify-content-center"><img src="${tier.emblemUrl}" alt='Nation Flag'></td>
+                  </tr> 
+                  <tr>
+                    <td class="d-flex justify-content-center"><a href="./team.html?team=${tier.id}">${tier.name}</a></td>
+                  </tr>
+                  <tr>
+                    <td class="d-flex justify-content-center">${tier.code}</td>
+                    </tr> 
+                </tbody>
+              </table>
+            `;
+              }
+            });
+            $(dataAja).html(html);
           })
-          $(dataAja).html(html)
-        })
-        .catch((err)=> console.log(err))
-      }
-      getListData();  
+          .catch((err) => console.log(err));
+      };
+      getListData();
     </script>
   </body>
 </html>
